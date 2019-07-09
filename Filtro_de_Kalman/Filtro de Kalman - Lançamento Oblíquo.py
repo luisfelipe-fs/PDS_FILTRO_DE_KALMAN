@@ -64,7 +64,7 @@ Y, V_Y = list(Y+0.1*np.random.normal(0, 1, N)), list(V_Y+1*np.random.normal(0, 1
 #'''
 
 '''
-with open("bolinha.txt") as f:
+with open("dados.txt") as f:
     T, Y, V_Y = list(), list(), list()
     for line in f.readlines():
         t, y, vy = line[:-1].split()
