@@ -1,5 +1,4 @@
 import numpy as np
-import math
 
 class Kalman:
     def __init__ (self, dt):
