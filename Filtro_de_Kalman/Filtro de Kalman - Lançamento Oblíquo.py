@@ -35,8 +35,8 @@ class Kalman:
 
     def covariance_update (self, P): # f[K(k+1)] = P(k+1|k+1)
         K = self.filter_gain(P)
-        I = np.eye(self.F.shape[1])
-        return ((I-K*self.H)*P)*((I-K*self.H).T)+K*self.R*K.T
+        S = self.covariance_measurement_prediction(P)
+        return self.covariance_prediction(P)-K*S*K.T
 
     def filter (self, x, P, z):
         return (self.state_update(x, P, z), self.covariance_update(P))
@@ -64,7 +64,7 @@ Y, V_Y = list(Y+0.1*np.random.normal(0, 1, N)), list(V_Y+1*np.random.normal(0, 1
 #'''
 
 '''
-with open("dados.txt") as f:
+with open("bolinha.txt") as f:
     T, Y, V_Y = list(), list(), list()
     for line in f.readlines():
         t, y, vy = line[:-1].split()
@@ -74,7 +74,6 @@ with open("dados.txt") as f:
         
 d_t = T[1]
 '''
-
 
 Z = list(Y)
 #Z = [np.matrix([[y], [vy]]) for y, vy in zip(Y, V_Y)]
@@ -96,7 +95,7 @@ import matplotlib.pyplot as plt
 Y_U = [X.tolist()[0][0] for X in x]
 VY_U = [X.tolist()[1][0] for X in x]
 
-figure = plt.figure("Filtro de Kalman - Lançamento Oblíquo")
+figure = plt.figure("Filtro de Kalman - Lançamento Vertical")
 plot1 = figure.add_subplot(211)
 plot1.plot(T, Y, label = 'Medidas')
 plot1.plot(T, Y_U, label = 'Medidas Filtradas')
