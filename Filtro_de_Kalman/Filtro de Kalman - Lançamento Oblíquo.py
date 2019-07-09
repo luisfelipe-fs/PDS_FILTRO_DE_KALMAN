@@ -7,8 +7,8 @@ class Kalman:
         self.G = np.matrix([[0.5*dt**2], [dt]])
         self.u = -9.81
         self.H = np.matrix([1, 0])
-        self.Q = np.matrix([[0.05, 0.05], [0.05, 0.05]])
-        self.R = 20
+        self.Q = np.matrix([[0.1, 0.1], [0.1, 0.1]])
+        self.R = 25
         
     def state_prediction (self, x): # f[x(k|k)] = x(k+1|k)
         return self.F*x+self.G*self.u
